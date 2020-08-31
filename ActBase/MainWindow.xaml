@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActBase"
         mc:Ignorable="d"
-        Title="ActBase - редактор базы данных" Height="450" Width="800" Closing="Window_Closing">
+        Title="ActBase - редактор базы данных" Height="450" Width="800" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="actViewSource" Source="{Binding Acts}"/>
         <CollectionViewSource x:Key="actMaterialViewSource" Source="{Binding Materials, Source={StaticResource actViewSource}}"/>
+        <Style x:Key="TextWrapping">
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+        </Style>
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -20,13 +23,26 @@
                   ItemsSource="{Binding Source={StaticResource actViewSource}}"
                   RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ActId}" Header="Act Id" Width="SizeToHeader" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding WorkName}" Header="Наименование работ" Width="*"/>
-                <DataGridTextColumn Binding="{Binding NextWorkName}" Header="Последующие работы" Width="*"/>
-                <DataGridTextColumn Binding="{Binding SignDate, StringFormat=d, ConverterCulture=ru-RU}" Header="Подпись" Width="70"/>
-                <DataGridTextColumn Binding="{Binding BeginDate, StringFormat=d, ConverterCulture=ru-RU}" Header="Начало" Width="70"/>
-                <DataGridTextColumn Binding="{Binding EndDate, StringFormat=d, ConverterCulture=ru-RU}" Header="Окон-ие" Width="70"/>
+                <DataGridTextColumn Binding="{Binding ActId}" Header="Act Id" Width="SizeToHeader" IsReadOnly="True"/>                
+                <DataGridTextColumn Binding="{Binding WorkName}" 
+                                    x:Name="WorkNameTextColumn" 
+                                    Header="Наименование работ" 
+                                    Width="*" 
+                                    ElementStyle="{StaticResource TextWrapping}"
+                                    EditingElementStyle="{StaticResource TextWrapping}"/>
+                <DataGridTextColumn Binding="{Binding NextWorkName}" 
+                                    Header="Последующие работы" 
+                                    Width="*" 
+                                    ElementStyle="{StaticResource TextWrapping}"
+                                    EditingElementStyle="{StaticResource TextWrapping}"/>
+                <DataGridTextColumn Binding="{Binding SignDate, StringFormat=d, ConverterCulture=ru-RU}" 
+                                    Header="Подпись" Width="70"/>
+                <DataGridTextColumn Binding="{Binding BeginDate, StringFormat=d, ConverterCulture=ru-RU}" 
+                                    Header="Начало" Width="70"/>
+                <DataGridTextColumn Binding="{Binding EndDate, StringFormat=d, ConverterCulture=ru-RU}" 
+                                    Header="Окон-ие" Width="70"/>
             </DataGrid.Columns>
+            
         </DataGrid>
         <DataGrid x:Name="materialsDataGrid" AutoGenerateColumns="False"
                   EnableRowVirtualization="True"
@@ -38,7 +54,7 @@
                                         IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding ActId}" Header="Act Id"
                                         Width="SizeToHeader" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Наименование" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="2" x:Name="SaveChangesButton" Click="SaveChangesButton_Click">Обновить</Button>

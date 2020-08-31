@@ -26,10 +26,7 @@ namespace ActBase
         ActContext Context;
         public MainWindow()
         {
-            InitializeComponent();
-            Context = new ActContext();
-            Context.Database.EnsureCreatedAsync();
-            DataContext = new MainWindowViewModel(Context);
+            InitializeComponent();            
         }
 
         private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
@@ -42,6 +39,13 @@ namespace ActBase
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Context.Dispose();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Context = new ActContext();
+            Context.Database.EnsureCreated();
+            DataContext = new MainWindowViewModel(Context);
         }
     }
 }

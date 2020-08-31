@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using ActBase.DbContext;
@@ -17,8 +18,8 @@ namespace ActBase.ViewModel
         public MainWindowViewModel(ActContext context)
         {
             Context = context;
-            Context.Acts.LoadAsync();
-            Acts = Context.Acts.Local.ToObservableCollection();
+            Context.Acts.Load();
+            Acts = Context.Acts.Local.ToObservableCollection();            
         }
 
         #region Commands
