@@ -9,7 +9,7 @@ namespace ActBase.Model
     /// <summary>
     /// Примененныq материал.
     /// </summary>
-    public class Material : INotifyPropertyChanged
+    public class MaterialModel : INotifyPropertyChanged
     {
         private string name;
 
@@ -30,7 +30,7 @@ namespace ActBase.Model
 
 
         public virtual int ActId { get; set; }
-        public virtual Act Act { get; set; }
+        public virtual ActModel Act { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

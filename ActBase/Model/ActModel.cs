@@ -10,7 +10,7 @@ namespace ActBase.Model
     /// <summary>
     /// Акт освидетельствования скрытых работ.
     /// </summary>
-    public class Act : INotifyPropertyChanged
+    public class ActModel : INotifyPropertyChanged
     {
         private string workName;
         private string nextWorkName;
@@ -85,7 +85,7 @@ namespace ActBase.Model
             }
         }
 
-        public virtual ICollection<Material> Materials { get; private set; } = new ObservableCollection<Material>();
+        public virtual ICollection<MaterialModel> Materials { get; private set; } = new ObservableCollection<MaterialModel>();
 
 
         public event PropertyChangedEventHandler PropertyChanged;
