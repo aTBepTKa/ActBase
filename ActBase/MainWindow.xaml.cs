@@ -1,8 +1,7 @@
-﻿using ActBase.Model;
-using ActBase.Services;
+﻿using ActBase.DbContext;
+using ActBase.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,32 +23,29 @@ namespace ActBase
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IActService actService;
-        public ObservableCollection<ActModel> Acts { get; set; }
-
+        ActContext Context;
         public MainWindow()
         {
-            InitializeComponent();
-            actService = new ActService();
+            InitializeComponent();            
         }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            Acts = await actService.GetAllAsync();
-            DataContext = this;
-        }
-
-        private async void SaveChangesButton_Click(object sender, RoutedEventArgs e)
-        {
-            await actService.UpdateAsync((ActModel)actDataGrid.CurrentItem);
-            Acts = await actService.GetAllAsync();
+            Context.SaveChangesAsync();
             actDataGrid.Items.Refresh();
             materialsDataGrid.Items.Refresh();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            actService.Dispose();
+            Context.Dispose();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Context = new ActContext();
+            Context.Database.EnsureCreated();
+            DataContext = new MainWindowViewModel(Context);
         }
     }
 }

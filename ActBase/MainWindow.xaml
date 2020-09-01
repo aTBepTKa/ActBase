@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <DataGrid x:Name="actDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True"
                   ItemsSource="{Binding Source={StaticResource actViewSource}}"
-                  RowDetailsVisibilityMode="VisibleWhenSelected" SelectionUnit="FullRow">
+                  RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ActId}" Header="Act Id" Width="SizeToHeader" IsReadOnly="True"/>                
                 <DataGridTextColumn Binding="{Binding WorkName}" 
@@ -35,12 +35,12 @@
                                     Width="*" 
                                     ElementStyle="{StaticResource TextWrapping}"
                                     EditingElementStyle="{StaticResource TextWrapping}"/>
+                <DataGridTextColumn Binding="{Binding SignDate, StringFormat=d, ConverterCulture=ru-RU}" 
+                                    Header="Подпись" Width="70"/>
                 <DataGridTextColumn Binding="{Binding BeginDate, StringFormat=d, ConverterCulture=ru-RU}" 
                                     Header="Начало" Width="70"/>
                 <DataGridTextColumn Binding="{Binding EndDate, StringFormat=d, ConverterCulture=ru-RU}" 
                                     Header="Окон-ие" Width="70"/>
-                <DataGridTextColumn Binding="{Binding SignDate, StringFormat=d, ConverterCulture=ru-RU}" 
-                                    Header="Подпись" Width="70"/>
             </DataGrid.Columns>
             
         </DataGrid>
