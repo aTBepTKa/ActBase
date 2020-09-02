@@ -8,7 +8,8 @@
         Title="ActBase - редактор базы данных" Height="450" Width="800" Closing="Window_Closing" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="actViewSource" Source="{Binding Acts}"/>
-        <CollectionViewSource x:Key="actMaterialViewSource" Source="{Binding Materials, Source={StaticResource actViewSource}}"/>
+        <CollectionViewSource x:Key="actMaterialViewSource" Source="{Binding ActMaterials, Source={StaticResource actViewSource}}"/>
+        <CollectionViewSource x:Key="materialsViewSource" Source="{Binding Materials}"/>
         <Style x:Key="TextWrapping">
             <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
         </Style>
@@ -23,7 +24,7 @@
                   ItemsSource="{Binding Source={StaticResource actViewSource}}"
                   RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ActId}" Header="Act Id" Width="SizeToHeader" IsReadOnly="True"/>                
+                <DataGridTextColumn Binding="{Binding ActId}" Header="Act Id" Width="SizeToHeader" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding WorkName}" 
                                     x:Name="WorkNameTextColumn" 
                                     Header="Наименование работ" 
@@ -42,7 +43,7 @@
                 <DataGridTextColumn Binding="{Binding EndDate, StringFormat=d, ConverterCulture=ru-RU}" 
                                     Header="Окон-ие" Width="70"/>
             </DataGrid.Columns>
-            
+
         </DataGrid>
         <DataGrid x:Name="materialsDataGrid" AutoGenerateColumns="False"
                   EnableRowVirtualization="True"
@@ -50,11 +51,16 @@
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding MaterialId}"
-                                        Header="Material Id" Width="SizeToHeader"
-                                        IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding ActId}" Header="Act Id"
-                                        Width="SizeToHeader" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Наименование" Width="*"/>
+                                    Header="Material Id" 
+                                    Width="SizeToHeader"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding ActId}" 
+                                    Header="Act Id"
+                                    Width="SizeToHeader" 
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Material.Name}" 
+                                    Header="Наименование" 
+                                    Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="2" x:Name="SaveChangesButton" Click="SaveChangesButton_Click">Обновить</Button>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Text;
 namespace ActBase.Model
 {
     /// <summary>
-    /// Примененныq материал.
+    /// Примененный материал.
     /// </summary>
     public class Material : INotifyPropertyChanged
     {
@@ -29,8 +30,7 @@ namespace ActBase.Model
         }
 
 
-        public virtual int ActId { get; set; }
-        public virtual Act Act { get; set; }
+        public virtual ICollection<ActMaterial> ActMaterials { get; private set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

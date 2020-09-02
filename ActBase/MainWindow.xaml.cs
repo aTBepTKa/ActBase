@@ -23,29 +23,30 @@ namespace ActBase
     /// </summary>
     public partial class MainWindow : Window
     {
-        ActContext Context;
+        MainWindowViewModel ViewModel { get; set; }
+
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            ViewModel = new MainWindowViewModel();
         }
 
-        private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveChangesButton_Click(object sender, RoutedEventArgs e)
         {
-            Context.SaveChangesAsync();
+            await ViewModel.SaveChanges();
             actDataGrid.Items.Refresh();
             materialsDataGrid.Items.Refresh();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Context.Dispose();
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {            
+            await ViewModel.SetContextAsync();
+            DataContext = ViewModel;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Context = new ActContext();
-            Context.Database.EnsureCreated();
-            DataContext = new MainWindowViewModel(Context);
+            await ViewModel.Dispose();
         }
     }
 }

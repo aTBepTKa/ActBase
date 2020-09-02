@@ -85,7 +85,7 @@ namespace ActBase.Model
             }
         }
 
-        public virtual ICollection<Material> Materials { get; private set; } = new ObservableCollection<Material>();
+        public virtual ICollection<ActMaterial> ActMaterials { get; private set; } = new ObservableCollection<ActMaterial>();
 
 
         public event PropertyChangedEventHandler PropertyChanged;
